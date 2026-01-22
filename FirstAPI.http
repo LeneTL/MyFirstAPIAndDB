@@ -1,0 +1,7 @@
+@FirstAPI_HostAddress = http://localhost:5033
+
+GET {{FirstAPI_HostAddress}}/health/
+Accept: application/json
+
+###
+
