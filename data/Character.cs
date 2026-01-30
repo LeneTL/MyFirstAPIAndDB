@@ -53,7 +53,7 @@ namespace FirstAPI.data
             return Convert.ToString(result);
         }
         //legge til et endepunkt som henter Navn - fixed
-        //legge til random heal
-        //legge til dmg
+        //legge til random heal - fixed
+        //legge til dmg - fixed
     }
 }

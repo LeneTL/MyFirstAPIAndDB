@@ -2,6 +2,7 @@ using FirstAPI.data;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.Hosting;
+using System.Numerics;
 
 namespace FirstAPI
 {
@@ -42,16 +43,20 @@ namespace FirstAPI
             //curl -X POST "https://localhost:7128/health/heal?id=1"
             app.MapPost("/health/heal", (int id, Character player) =>
             {
-                var result = player.UpdateHealth(id, GetRandomNumber());
+                player.UpdateHealth(id, GetRandomNumber() * 2);
+                var result = player.GetHealth(id);
                 return result;
             });
 
 
+            //curl -X POST "https://localhost:7128/health/damage?id=1"
+            app.MapPost("/health/damage", (int id, Character player) =>
+            {
+                player.UpdateHealth(id, -GetRandomNumber());
+                var result = player.GetHealth(id);
+                return result;
 
-            //app.MapPost("/health/damage", (int) =>
-            //{
-
-            //})
+            });
 
             //curl "https://localhost:7128/health?id=1"
             app.MapGet("/health", (int id, Character player) =>
