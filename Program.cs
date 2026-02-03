@@ -30,7 +30,7 @@ namespace FirstAPI
             app.UseAuthorization();
             app.MapControllers();
 
-            //---------------- (control * = ta vekk //)
+            //---------------- (control * = tar vekk //)
 
 
             //curl -X POST "https://localhost:7128/health/heal?id=1&newHealth=100"
@@ -43,18 +43,19 @@ namespace FirstAPI
             //curl -X POST "https://localhost:7128/health/heal?id=1"
             app.MapPost("/health/heal", (int id, Character player) =>
             {
-                player.UpdateHealth(id, GetRandomNumber() * 2);
-                var result = player.GetHealth(id);
-                return result;
+                var healed = GetRandomNumber() * 2;
+                player.UpdateHealth(id, healed);
+                return healed;
+                
             });
 
 
             //curl -X POST "https://localhost:7128/health/damage?id=1"
             app.MapPost("/health/damage", (int id, Character player) =>
             {
-                player.UpdateHealth(id, -GetRandomNumber());
-                var result = player.GetHealth(id);
-                return result;
+                var damageTaken = GetRandomNumber();
+                player.UpdateHealth(id, -damageTaken);
+                return -damageTaken;
 
             });
 
@@ -70,6 +71,16 @@ namespace FirstAPI
             {
                 var result = player.GetName(id);
                 return result;
+            });
+
+            //curl -X POST "https://localhost:7128/attack/success?id=1"
+            app.MapPost("/attack/success", (int id, Character player) =>
+            {
+
+                player.UpdateXp(id, 150);
+                var result = player.GetXp(id);
+                return result;
+
             });
 
             app.Run();
